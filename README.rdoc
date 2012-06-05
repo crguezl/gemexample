@@ -1,0 +1,167 @@
+= Uniquify
+
+* http://railscasts.com/episodes/135-making-a-gem
+
+== DESCRIPTION:
+
+  This is a trivial example of how to make a gem
+
+1. Build a structure like the one here.
+          .
+          |--README.rdoc
+          |--Rakefile
+          `--lib
+             `--uniquify.rb
+   
+   The "Rakefile" is very important:
+
+      $ cat Rakefile 
+      # http://railscasts.com/episodes/135-making-a-gem
+      require "rubygems"
+      require "rake"
+      require "echoe"
+
+      Echoe.new('uniquify', '0.1.0') do |p|
+        p.description = "Generate a unique token with Active Record."
+        p.url         = "http://github.com/crguezl/uniquify"
+        p.author      = "Casiano Rodriguez-Leon"
+        p.email       = "crguezl@ull.edu.es"
+        p.ignore_pattern = ["tmp/*", "script/*"]
+        p.development_dependencies = []
+      end
+
+      Dir["#{File.dirname(__FILE__)}/tasks/*.rake"].sort.each { |ext| load ext }
+
+
+2. $ rake manifest
+            Cleaning
+            Building Manifest
+            + Manifest
+            + README.rdoc
+            + Rakefile
+            + lib/uniquify.rb
+
+  Once we have built the "Manifest" we can see the available tasks:
+
+        $ rake -T
+        rake announce             # Generate a release announcement, edit it, and post it to Rubyforge.
+        rake build                # Generates manifest & gemspec in one go
+        rake build_gemspec        # Builds the .gemspec
+        rake clean                # Remove any temporary products.
+        rake clobber              # Remove any generated file.
+        rake clobber_docs         # Remove RDoc HTML files
+        rake clobber_package      # Remove package products
+        rake console              # Start an irb session and load the library.
+        rake details              # Display Echoe's knowledge of your system
+        rake docs                 # Build RDoc HTML files
+        rake gem                  # Build the gem file uniquify-0.1.0.gem
+        rake install              # Install the gem
+        rake install:development  # Install the gem including development dependencies
+        rake manifest             # Build a Manifest list
+        rake package              # Build all the packages
+        rake prerelease           # Override this task to add prerelease checks
+        rake publish_docs         # Publish documentation to the internet.
+        rake redocs               # Rebuild RDoc HTML files
+        rake release              # Package and upload the release to Gemcutter
+        rake repackage            # Force a rebuild of the package files
+        rake uninstall            # Uninstall the gem
+
+3. Now we can install the gem:
+
+          $ rake install
+              Cleaning
+              - pkg
+              rm -rf pkg
+              Gemspec generated
+              mkdir -p pkg
+              mkdir -p pkg/uniquify-0.1.0
+              rm -f pkg/uniquify-0.1.0/README.rdoc
+              ln README.rdoc pkg/uniquify-0.1.0/README.rdoc
+              rm -f pkg/uniquify-0.1.0/Rakefile
+              ln Rakefile pkg/uniquify-0.1.0/Rakefile
+              mkdir -p pkg/uniquify-0.1.0/lib
+              rm -f pkg/uniquify-0.1.0/lib/uniquify.rb
+              ln lib/uniquify.rb pkg/uniquify-0.1.0/lib/uniquify.rb
+              rm -f pkg/uniquify-0.1.0/Manifest
+              ln Manifest pkg/uniquify-0.1.0/Manifest
+              rm -f pkg/uniquify-0.1.0/uniquify.gemspec
+              ln uniquify.gemspec pkg/uniquify-0.1.0/uniquify.gemspec
+              cd pkg
+              tar zcvf uniquify-0.1.0.tar.gz uniquify-0.1.0
+              a uniquify-0.1.0
+              a uniquify-0.1.0/lib
+              a uniquify-0.1.0/Manifest
+              a uniquify-0.1.0/Rakefile
+              a uniquify-0.1.0/README.rdoc
+              a uniquify-0.1.0/uniquify.gemspec
+              a uniquify-0.1.0/lib/uniquify.rb
+              cd -
+              cd pkg/uniquify-0.1.0
+              WARNING:  description and summary are identical
+              mv uniquify-0.1.0.gem ..
+              cd -
+              Private key not found; gem will not be signed.
+              Targeting "ruby" platform.
+              Password:
+              Successfully uninstalled uniquify-0.1.0
+              Successfully installed uniquify-0.1.0
+              1 gem installed
+              Installing ri documentation for uniquify-0.1.0...
+              Installing RDoc documentation for uniquify-0.1.0...
+
+
+4. This is the tree after "rake install"
+
+            $ tree
+            .
+            |--Manifest
+            |--README.rdoc
+            |--Rakefile
+            |--lib
+            |  `--uniquify.rb
+            `--pkg
+               |--uniquify-0.1.0
+               |  |--Manifest
+               |  |--README.rdoc
+               |  |--Rakefile
+               |  |--lib
+               |  |  `--uniquify.rb
+               |  `--uniquify.gemspec
+               |--uniquify-0.1.0.gem
+               `--uniquify-0.1.0.tar.gz
+
+5. Now we can use the just installed gem:
+
+          $ irb
+          ruby-1.9.2-p290 :001 > require "uniquify"
+           => true 
+          ruby-1.9.2-p290 :002 > Uniquify.new.hello
+          Hello World!
+           => nil 
+
+== Requirement
+
+  *  Ruby 1.8.x or later.
+
+
+== Installation
+
+  gem install:
+
+    $ gem install uniquify
+
+== License
+
+  Uniquify is distributed under the terms of the GNU Lesser General
+  Public License version 2. 
+
+
+== Bug Reports
+
+  Any kind of bug reports are welcome.
+  If you find a bug , please email me. 
+
+
+                                          Casiano Rodriguez-Leon
+                                              crguezl@ull.edu.es
+                                         http://gplus.to/casiano
