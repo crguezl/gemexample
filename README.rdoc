@@ -248,6 +248,43 @@
       end
     end
 
+15. Add the gemspec to the rep:
+
+      $ git add .
+      $ git status -s
+      M  README.rdoc
+      A  uniquify.gemspec
+      $ git commit -m 'adding gemspec file'
+      [master accfc87] adding gemspec file
+       2 files changed, 147 insertions(+), 2 deletions(-)
+       create mode 100644 uniquify.gemspec
+      $ git push
+      Counting objects: 6, done.
+      Delta compression using up to 2 threads.
+      Compressing objects: 100% (4/4), done.
+      Writing objects: 100% (4/4), 2.13 KiB, done.
+      Total 4 (delta 2), reused 0 (delta 0)
+      To git@github.com:crguezl/gemexample.git
+         7b0ff4e..accfc87  master -> master
+
+16. Now the project can be used as a gem if you download the project
+from github:
+
+          $ gem build uniquify.gemspec 
+          WARNING:  description and summary are identical
+            Successfully built RubyGem
+            Name: uniquify
+            Version: 0.1.0
+            File: uniquify-0.1.0.gem
+
+        $ ls -l uniquify-0.1.0.gem 
+        -rw-rw-r--  1 casianorodriguezleon  staff  6656  5 jun 22:37 uniquify-0.1.0.gem
+
+        $ gem install uniquify-0.1.0.gem 
+        Successfully installed uniquify-0.1.0
+        1 gem installed
+        Installing ri documentation for uniquify-0.1.0...
+        Installing RDoc documentation for uniquify-0.1.0...
 
 == Requirement
 
